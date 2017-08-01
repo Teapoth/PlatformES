@@ -5,7 +5,7 @@ A Symfony project created on July 6, 2017, 3:28 pm.
 
 Pour tester la platforme, il est nécessaire d'avoir une base de données en fonctionnement.
 
-##Installation d'une base de données
+## Installation d'une base de données
 
 Tout d'abord télécharger mysql-server :
     
@@ -20,7 +20,7 @@ et enfin créer une base de données (en entrant votre mot de passe):
     mysql -u root -p
     CREATE DATABASE Symfony;
 
-##Configuration de Symfony
+## Configuration de Symfony
 
 Il faut en configurer l'accès via app/config/parameters.yml :
 
@@ -44,3 +44,7 @@ Puis mettre à jour la base de donnée avec les commandes :
     php bin/console doctrine:fixture:load
     
 La plateforme est fonctionnelle, consultable en localhost.
+
+
+
+
