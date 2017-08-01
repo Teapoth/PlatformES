@@ -1,0 +1,20 @@
+{% extends "ESPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block esplatform_body %}
+	<h2>Mes annonces</h2>
+	
+	<ul>
+    	{% for advert in listAdverts %}
+      		<li>
+        		<a href="{{ path('es_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a> le {{ advert.date|date('d/m/Y') }}
+        	</li>
+    	
+    	{% else %}
+			<li>Pas (encore !) d'annonces</li>
+    	{% endfor %}
+
+	</ul>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+es_membre_home:
+    path:      /
+    defaults:  
+        _controller: ESUserBundle:Membre:index 
+
+es_membre_files:
+    path:      /files
+    defaults: 
+        _controller: ESUserBundle:Membre:file
+
+es_membre_message:
+    path:      /message
+    defaults: 
+        _controller: ESUserBundle:Membre:message
+
+es_membre_planning:
+    path:      /planning
+    defaults:
+        _controller: ESPlatformBundle:Advert:edit
+
+es_membre_membres:
+    path:      /delete/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:delete
+    requirements:
+        id: \d+
+
+es_membre_validation:
+    path:      /myadverts
+    defaults:
+        _controller: ESPlatformBundle:Advert:selfadverts

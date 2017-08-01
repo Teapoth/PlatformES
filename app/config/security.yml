@@ -1,0 +1,41 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+  encoders:
+    ES\UserBundle\Entity\User: sha512
+
+  role_hierarchy:
+    ROLE_ADMIN:       [ROLE_USER, ROLE_AUTEUR, ROLE_MODERATEUR, ROLE_MEMBRE]
+    ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+  providers:
+    main:
+      id: fos_user.user_provider.username
+
+  access_decision_manager:
+    strategy:             affirmative
+    allow_if_all_abstain:  false
+    allow_if_equal_granted_denied:  true
+
+  firewalls:
+    # disables authentication for assets and the profiler, adapt it according to your needs
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    main:
+      pattern: ^/
+      anonymous: true
+      provider: main
+      form_login:
+        login_path: fos_user_security_login
+        check_path: fos_user_security_check
+      logout:
+        path:   fos_user_security_logout
+        target: fos_user_security_login
+      remember_me:
+        secret: "%secret%"
+
+  access_control:
+    - { path: ^/message/, roles: ROLE_MEMBRE }

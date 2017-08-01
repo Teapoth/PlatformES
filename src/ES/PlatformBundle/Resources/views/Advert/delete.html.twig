@@ -1,0 +1,24 @@
+{% extends "ESPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	Supprimer une annonce - {{ parent() }}
+{% endblock %}
+ 
+{% block esplatform_body %}
+
+  <h2>Supprimer une annonce</h2>
+
+  <p>
+	Êtes vous certain de vouloir supprmer l'annonce "{{ advert. title }}" ?
+  </p>
+
+  <form action="{{ path('es_platform_delete', {'id': advert.id}) }}" method="post">
+    <a href="{{ path('es_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'annonce
+    </a>
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

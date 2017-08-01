@@ -1,0 +1,20 @@
+services:
+#    es_platform.example:
+#        class: ES\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  es_platform.antispam:
+    class: ES\PlatformBundle\Antispam\ESAntispam
+    arguments:
+      - "@mailer"
+      - "%locale%"
+      - 50
+  es_platform.email.application_mailer:
+    class: ES\PlatformBundle\Email\ApplicationMailer
+    arguments:
+      - "@mailer"
+  es_platform.email.application_creation:
+    class: ES\PlatformBundle\DoctrineListener\ApplicationCreationListener
+    arguments:
+      - "@es_platform.email.application_mailer"
+    tags:
+      - { name: doctrine.event_listener, event: postPersist }

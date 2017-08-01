@@ -1,0 +1,37 @@
+es_platform_home:
+    path:      /{page}
+    defaults:  
+        _controller: ESPlatformBundle:Advert:index 
+        page: 1
+    requirements:
+        page: \d*
+
+es_platform_view:
+    path:      /advert/{id}
+    defaults: 
+        _controller: ESPlatformBundle:Advert:view 
+    requirements:
+        id: \d+
+
+es_platform_add:
+    path:      /add
+    defaults: { _controller: ESPlatformBundle:Advert:add }
+
+es_platform_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:edit
+    requirements:
+        id: \d+
+
+es_platform_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:delete
+    requirements:
+        id: \d+
+
+es_platform_self_adverts:
+    path:      /myadverts
+    defaults:
+        _controller: ESPlatformBundle:Advert:selfadverts
