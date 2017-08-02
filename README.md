@@ -44,6 +44,7 @@ Puis mettre à jour la base de donnée avec les commandes :
     php bin/console doctrine:fixture:load
     
 La plateforme est fonctionnelle, consultable en localhost.
+Deux comptes sont pré-existant: **admin** (mdp: **admin**), qui possède tous les droits, et **user** (mdp: **admin**), simple utilisateur.
 
 
 
