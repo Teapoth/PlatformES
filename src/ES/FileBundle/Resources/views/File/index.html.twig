@@ -1,0 +1,50 @@
+{% extends "ESFileBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block esfile_body %}
+	<h2>Liste des fichiers{% if directory is not null %} - Dossier {{ directory.name }}{% endif %}</h2>
+
+    {% if idParentDirectory is not null %}
+        <a href="{{ path('es_file_index', {'directoryId': idParentDirectory}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>Dossier Parent</a>
+    {% endif %}
+
+    {% if directory is not null %}
+        <a href="{{ path('es_file_add', {'directoryId': directory.id}) }}" class="btn btn-default">Ajouter un fichier</a>
+        <a href="{{ path('es_file_add_directory', {'directoryId': directory.id}) }}" class="btn btn-default">Ajouter un dossier</a>
+    {% else %}
+        <a href="{{ path('es_file_add') }}" class="btn btn-default">Ajouter un fichier</a>
+        <a href="{{ path('es_file_add_directory') }}" class="btn btn-default">Ajouter un dossier</a>
+    {% endif %}
+    <ul>
+        {% for adirectory in listDirectories %}
+            <li>
+                <a href="{{ path('es_file_index', {'directoryId': adirectory.id}) }}">
+                {{ adirectory.name }}</a>
+                <a href="{{ path('es_file_rename_directory', {'id': adirectory.id}) }}" class="btn btn-default">
+                Renomer</a>
+                <a href="{{ path('es_file_delete_directory', {'id': adirectory.id}) }}" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Supprimer
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+	
+	<ul>
+    	{% for file in listFiles %}
+      		<li>
+                <a href="{{ file.WebPath }}">
+        		{{ file.name }}.{{ file.extension }}</a>
+                <a href="{{ path('es_file_rename_file', {'id': file.id}) }}" class="btn btn-default">
+                Renomer</a>
+                <a href="{{ path('es_file_delete_file', {'id': file.id}) }}" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Supprimer
+                </a>
+        	</li>
+    	{% endfor %}
+	</ul>
+
+{% endblock %}

@@ -1,0 +1,192 @@
+<?php
+
+namespace ES\FileBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+
+/**
+ * Directory
+ *
+ * @ORM\Table(name="directory")
+ * @ORM\Entity(repositoryClass="ES\FileBundle\Repository\DirectoryRepository")
+ */
+class Directory
+{
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="ES\FileBundle\Entity\Directory",
+     inversedBy="content_directories")
+     */
+    private $directory;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="ES\FileBundle\Entity\Directory",
+     *   mappedBy="directory",
+     *   cascade={"remove"}
+     * )
+     * @var Directory[]|Collection
+     */
+    private $content_directories;
+
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="ES\FileBundle\Entity\File",
+     *   mappedBy="directory",
+     *   cascade={"remove"}
+     * )
+     * @var File[]|Collection
+     */
+    private $content_files;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Directory
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->content_directories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->content_files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set directory
+     *
+     * @param \ES\FileBundle\Entity\Directory $directory
+     *
+     * @return Directory
+     */
+    public function setDirectory(\ES\FileBundle\Entity\Directory $directory = null)
+    {
+        $this->directory = $directory;
+
+        return $this;
+    }
+
+    /**
+     * Get directory
+     *
+     * @return \ES\FileBundle\Entity\Directory
+     */
+    public function getDirectory()
+    {
+        return $this->directory;
+    }
+
+    /**
+     * Add contentDirectory
+     *
+     * @param \ES\FileBundle\Entity\Directory $contentDirectory
+     *
+     * @return Directory
+     */
+    public function addContentDirectory(\ES\FileBundle\Entity\Directory $contentDirectory)
+    {
+        $this->content_directories[] = $contentDirectory;
+
+        return $this;
+    }
+
+    /**
+     * Remove contentDirectory
+     *
+     * @param \ES\FileBundle\Entity\Directory $contentDirectory
+     */
+    public function removeContentDirectory(\ES\FileBundle\Entity\Directory $contentDirectory)
+    {
+        $this->content_directories->removeElement($contentDirectory);
+    }
+
+    /**
+     * Get contentDirectories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContentDirectories()
+    {
+        return $this->content_directories;
+    }
+
+    /**
+     * Add contentFile
+     *
+     * @param \ES\FileBundle\Entity\File $contentFile
+     *
+     * @return Directory
+     */
+    public function addContentFile(\ES\FileBundle\Entity\File $contentFile)
+    {
+        $this->content_files[] = $contentFile;
+
+        return $this;
+    }
+
+    /**
+     * Remove contentFile
+     *
+     * @param \ES\FileBundle\Entity\File $contentFile
+     */
+    public function removeContentFile(\ES\FileBundle\Entity\File $contentFile)
+    {
+        $this->content_files->removeElement($contentFile);
+    }
+
+    /**
+     * Get contentFiles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContentFiles()
+    {
+        return $this->content_files;
+    }
+}

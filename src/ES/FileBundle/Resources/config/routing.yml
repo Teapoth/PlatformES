@@ -1,0 +1,56 @@
+es_file_index:
+    path:     /{directoryId}
+    defaults: 
+      _controller: ESFileBundle:File:index
+      directoryId: 0
+    requirements:
+      directoryId: \d*
+
+es_file_add:
+    path:     /add/{directoryId}
+    defaults: 
+      _controller: ESFileBundle:File:Add
+      directoryId: 0
+    requirements:
+      directoryId: \d*
+
+es_file_add_directory:
+    path:     /add/directory/{directoryId}
+    defaults: 
+      _controller: ESFileBundle:File:AddDirectory
+      directoryId: 0
+    requirements:
+      directoryId: \d*
+
+es_file_rename_directory:
+    path:     /rename/directory/{id}
+    defaults: 
+      _controller: ESFileBundle:File:RenameDirectory
+    requirements:
+      directoryId: \d*
+
+es_file_rename_file:
+    path:     /rename/file/{id}
+    defaults: 
+      _controller: ESFileBundle:File:RenameFile
+    requirements:
+      directoryId: \d*
+
+es_file_delete_directory:
+    path:     /delete/directory/{id}
+    defaults: 
+      _controller: ESFileBundle:File:DeleteDirectory
+    requirements:
+      directoryId: \d*
+
+es_file_delete_file:
+    path:     /delete/file/{id}
+    defaults: 
+      _controller: ESFileBundle:File:DeleteFile
+    requirements:
+      directoryId: \d*
+
+es_file_view:
+    path: /uploads/file/{id}.{extension}
+    defaults:
+      _controller: ESFileBundle:File:view

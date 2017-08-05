@@ -1,0 +1,16 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+  Fichiers - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  <h1>Gestionnaire de Fichiers</h1>
+
+  <hr>
+
+  {% block esfile_body %}
+  {% endblock %}
+
+{% endblock %}

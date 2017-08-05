@@ -1,0 +1,20 @@
+{% extends "ESFileBundle::layout.html.twig" %}
+
+{% block title %}
+	Supprimer un dossier - {{ parent() }}
+{% endblock %}
+ 
+{% block esfile_body %}
+
+  <h2>Supprimer un dossier</h2>
+
+  <p>
+	  Êtes vous certain de vouloir supprimer le dossier "{{ directory.name }}" et tout son contenu ?
+  </p>
+
+  <form action="{{ path('es_file_delete_directory', {'id': directory.id}) }}" method="post">
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

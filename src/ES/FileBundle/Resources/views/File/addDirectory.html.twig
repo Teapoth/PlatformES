@@ -1,0 +1,12 @@
+{% extends "ESFileBundle::layout.html.twig" %}
+
+{% block body %}
+
+	{% if directory is null %}
+		<h2>Créer un dossier</h2>
+	{% else %}
+		<h2>Créer un dossier dans le dossier {{ directory.name }}</h2>
+	{% endif %}
+	{{ include("ESFileBundle:File:form.html.twig") }}
+
+{% endblock %}

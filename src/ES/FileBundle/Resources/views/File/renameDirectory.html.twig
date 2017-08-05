@@ -1,0 +1,13 @@
+{% extends "ESFileBundle::layout.html.twig" %}
+
+{% block title %}
+  Renomer - {{ parent() }}
+{% endblock %}
+
+{% block esfile_body %}
+
+  <h2>Renomer un dossier</h2>
+
+  {{ include("ESFileBundle:File:form.html.twig") }}
+
+{% endblock %}
