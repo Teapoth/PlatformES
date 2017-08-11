@@ -1,0 +1,32 @@
+es_agenda_index:
+    path:     /{month}
+    defaults:
+        _controller: ESAgendaBundle:Agenda:index
+        month: 0
+    requirements:
+        month: -*\d*+$
+
+es_agenda_view:
+    path:      /event/{id}
+    defaults: 
+        _controller: ESAgendaBundle:Agenda:view 
+    requirements:
+        id: \d+
+
+es_agenda_add:
+    path:      /add
+    defaults: { _controller: ESAgendaBundle:Agenda:add }
+
+es_agenda_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: ESAgendaBundle:Agenda:edit
+    requirements:
+        id: \d+
+
+es_agenda_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: ESAgendaBundle:Agenda:delete
+    requirements:
+        id: \d+

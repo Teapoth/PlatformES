@@ -1,0 +1,20 @@
+{% extends "ESAgendaBundle::layout.html.twig" %}
+
+{% block title %}
+  Modifier un évènement - {{ parent() }}
+{% endblock %}
+
+{% block esagenda_body %}
+
+  <h2>Modifier un évènement</h2>
+
+  {{ include("ESAgendaBundle:Agenda:form.html.twig") }}
+
+  <p>
+    <a href="{{ path('es_agenda_view', {'id': event.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'évènement
+    </a>
+  </p>
+
+{% endblock %}

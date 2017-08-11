@@ -1,0 +1,31 @@
+{% extends "ESAgendaBundle::layout.html.twig" %}
+
+{% block title %}
+  Lecture d'un évènement - {{ parent() }}
+{% endblock %}
+
+{% block esagenda_body %}
+
+  <h2>{{ event.name }}</h2>
+  <i>Du {{ event.dateBeginning|date('d/m/Y') }}, {{  event.dateBeginning|date('H:i') }} à {{ event.dateEnding|date('d/m/Y') }}, {{  event.dateEnding|date('H:i') }}</i>
+
+  <div class="well">
+    {{ event.description }}
+  </div>
+
+  <p>
+    <a href="{{ path('es_agenda_index') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour
+    </a>
+    <a href="{{ path('es_agenda_edit', {'id': event.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier l'évènement
+    </a>
+    <a href="{{ path('es_agenda_delete', {'id': event.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Supprimer l'évènement
+      </a>
+  </p>
+
+{% endblock %}
