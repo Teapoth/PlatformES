@@ -1,0 +1,27 @@
+{% extends "ESPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ 'Gestion des annonces'|trans }}{% endblock %}
+
+{% block esplatform_body %}
+	<h2>{{ 'Annonces en cours d\'acceptation'|trans }}</h2>
+	
+	<ul>
+    	{% for advert in listAdverts %}
+      		<li>
+        		<a href="{{ path('es_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a> {{ 'le'|trans }} {{ advert.date|date('d/m/Y') }} - {{ 'Status'|trans }} : 
+                {% if advert.budgetAccepted %}
+                    {{ 'En attente d\'acceptation du projet'|trans }}
+                {% elseif advert.descriptionAccepted %}
+                    {{ 'En attente d\'acceptation du budget'|trans }}
+                {% else %}
+                    {{ 'En attente d\'acceptation de la description'|trans }}
+                {% endif %}
+        	</li>
+    	
+    	{% else %}
+			<li>{{ 'Pas (encore !) d\'annonces'|trans }}</li>
+    	{% endfor %}
+
+	</ul>
+
+{% endblock %}

@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new ES\UserBundle\ESUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
+            new ES\FileBundle\ESFileBundle(),
+            new ES\AgendaBundle\ESAgendaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -51,12 +51,12 @@ class FileController extends Controller
 
     public function addAction(Request $request, $directoryId)
   	{
-      	$file = new File();
+    	$file = new File();
 
-        $em = $this->getDoctrine()->getManager();
-        $directory = $em->getRepository('ESFileBundle:Directory')->findOneById($directoryId);
+      $em = $this->getDoctrine()->getManager();
+      $directory = $em->getRepository('ESFileBundle:Directory')->findOneById($directoryId);
 
-      	$form = $this->get('form.factory')->create(MyfileType::class, $file);
+    	$form = $this->get('form.factory')->create(MyfileType::class, $file);
 
       if ($request->isMethod('POST')) {
         $form->handleRequest($request);
@@ -215,13 +215,14 @@ class FileController extends Controller
       return $this->render('ESFileBundle:File:deleteDirectory.html.twig', array('directory' => $directory, 'form'   => $form->createView()));
   }
 
-  public function viewAction($id, $extension){
+  public function viewAction($id, $extension)
+  {
     $em = $this->getDoctrine()->getManager();
     $file = $em->getRepository('ESFileBundle:File')->find($id);
     $response = new Response();
     $response->setContent(file_get_contents("uploads/file/".$id.".".$extension));
     $response->headers->set('Content-Type', 'application/force-download');
-    $response->headers->set('Content-disposition', 'filename='.$file->getName().".".$extension);
+    $response->headers->set('Content-disposition', 'filename='.$file->getName().'.'.$extension);
          
     return $response;
   }

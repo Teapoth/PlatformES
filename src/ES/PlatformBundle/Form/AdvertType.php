@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,26 +26,17 @@ class AdvertType extends AbstractType
         $builder
           ->add('title',     TextType::class)
           ->add('content',   TextareaType::class)
-          ->add('image',     ImageType::class, array('required' => false))
           ->add('categories', EntityType::class, array(
             'class'         => 'ESPlatformBundle:Category',
             'choice_label'  => 'name',
             'multiple'      => true
             ))
+          ->add('place',     TextType::class)
+          ->add('startDate', DateType::class)
+          ->add('endDate',   DateType::class)
+          ->add('nbperson',  IntegerType::class)
+          ->add('price',     IntegerType::class)
           ->add('save',      SubmitType::class);
-
-        $builder->addEventListener(
-          FormEvents::PRE_SET_DATA,
-          function(FormEvent $event) {
-            $advert = $event->getData();
-            if (null === $advert) {
-              return;
-            }
-            if (!$advert->getPublished() || null === $advert->getId()) {
-              $event->getForm()->add('published', CheckboxType::class, array('required' => false));
-            }
-          }
-        );
     }
     
     /**

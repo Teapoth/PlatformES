@@ -2,13 +2,8 @@
 
 {% block body %}
 
-  <h2>Ajouter une annonce</h2>
+  <h2>{{ 'Ajouter un Évènement'|trans }}</h2>
 
   {{ include("ESAgendaBundle:Agenda:form.html.twig") }}
-
-  <p>
-    Attention : cette annonce sera ajoutée directement
-    sur la page d'accueil après validation du formulaire.
-  </p>
 
 {% endblock %}

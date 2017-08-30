@@ -35,3 +35,57 @@ es_platform_self_adverts:
     path:      /myadverts
     defaults:
         _controller: ESPlatformBundle:Advert:selfadverts
+
+es_platform_accept:
+    path: /accept
+    defaults:
+        _controller: ESPlatformBundle:Advert:accept
+
+es_platform_accept_project:
+    path: /accept/project/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:acceptProject 
+    requirements:
+        id: \d+
+
+es_platform_accept_budget:
+    path: /accept/budget/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:acceptBudget 
+    requirements:
+        id: \d+
+
+es_platform_accept_description:
+    path: /accept/description/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:acceptDescription 
+    requirements:
+        id: \d+
+
+es_platform_budget_view:
+    path:      /budget/{id}
+    defaults: 
+        _controller: ESPlatformBundle:Advert:viewBudget
+    requirements:
+        id: \d+
+
+es_platform_budget_add:
+    path:      /budget/add/{id}
+    defaults: 
+        _controller: ESPlatformBundle:Advert:addBudget
+    requirements:
+        id: \d+
+
+es_platform_budget_edit:
+    path:      /budget/edit/{id}
+    defaults:
+        _controller: ESPlatformBundle:Advert:editBudget
+    requirements:
+        id: \d+
+
+es_platform_participe:
+    path:      /participe/{id}
+    defaults: 
+        _controller: ESPlatformBundle:Advert:participe
+    requirements:
+        id: \d+

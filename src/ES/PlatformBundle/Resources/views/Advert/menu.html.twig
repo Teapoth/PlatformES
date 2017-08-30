@@ -1,7 +1,7 @@
-<ul class="nav nav-pills nav-stacked">
+<ul class="nav nav-pills flex-column">
   {% for advert in listAdverts %}
-    <li>
-      <a href="{{ path('es_platform_view', {'id': advert.id}) }}">
+    <li class="nav-item">
+      <a class="nav-item" href="{{ path('es_platform_view', {'id': advert.id}) }}">
         {{ advert.title }}
       </a>
     </li>

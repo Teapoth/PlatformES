@@ -1,32 +1,67 @@
 home:
-    path: /
+    path: /{_locale}/
     defaults:
         _controller: ESPlatformBundle:Advert:index
         page: 1
+    requirements:
+        _locale: en|fr|es
 
 es_platform:
     resource: "@ESPlatformBundle/Resources/config/routing.yml"
-    prefix:   /platform
+    prefix:   /{_locale}/platform
+    requirements:
+        _locale: en|fr|es
+
+es_agenda:
+    resource: "@ESAgendaBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/agenda
+    requirements:
+        _locale: en|fr|es
+
+es_file:
+    resource: "@ESFileBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/files
+    requirements:
+        _locale: en|fr|es
+
+es_user:
+    resource: "@ESUserBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/user
+    requirements:
+        _locale: en|fr|es
 
 fos_message:
     resource: "@FOSMessageBundle/Resources/config/routing.xml"
-    prefix: /message
+    prefix: /{_locale}/message
+    requirements:
+        _locale: en|fr|es
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}/
+    requirements:
+        _locale: en|fr|es
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
+    prefix: /{_locale}/profile
+    requirements:
+        _locale: en|fr|es
 
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+    prefix: /{_locale}/register
+    requirements:
+        _locale: en|fr|es
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
+    prefix: /{_locale}/resetting
+    requirements:
+        _locale: en|fr|es
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+    prefix: /{_locale}/profile
+    requirements:
+        _locale: en|fr|es

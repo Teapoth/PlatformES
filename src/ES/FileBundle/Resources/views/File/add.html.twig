@@ -3,9 +3,9 @@
 {% block body %}
 
 	{% if directory is empty %}
-		<h2>Ajouter un fichier</h2>
+		<h2>{{ 'Ajouter un fichier'|trans }}</h2>
 	{% else %}
-		<h2>Ajouter un fichier dans le dossier {{ directory.name }}</h2>
+		<h2>{{ 'Ajouter un fichier dans le dossier'|trans }} {{ directory.name }}</h2>
 	{% endif %}
 	{{ include("ESFileBundle:File:form.html.twig") }}
 

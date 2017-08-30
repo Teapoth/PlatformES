@@ -2,78 +2,96 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>{% block title %}ES Plateforme{% endblock %}</title>
+  <title>{% block title %}{{ 'ES Plateforme'|trans }}{% endblock %}</title>
 
   {% block stylesheets %}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   {% endblock %}
-
 </head>
 
+<style type="text/css">
+body {
+  padding-top: 4rem;
+}
+</style>
+
 <body>
-  <div class="container">
-    <div id="header" class="jumbotron">
-      <h1>Esteli Solidarité</h1>
-      <p>
-        Esteli Solidarité vous permet de réaliser des projets humanitaires aux Nicaragua, encadrés et formateurs.
-      </p>
-      <p>
-        <a class="btn btn-primary btn-lg" href="https://estelisolidarite.wordpress.com/">
-            À Propos »
-        </a>
-      </p>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="{{ path('es_platform_home') }}">Esteli Solidarité</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('fos_user_profile_show') }}">{{ 'Profil'|trans }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('fos_user_security_logout') }}">{{ 'Déconnexion'|trans }}</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('fos_user_security_login') }}">{{ 'Connexion'|trans }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('fos_user_registration_register') }}">{{ 'Créer un compte'|trans }}</a>
+        </li>
+        {% endif %}
+      </ul>
+      <a class="btn btn-lg" href="https://estelisolidarite.wordpress.com/">
+        {{ 'À Propos'|trans }}
+      </a>
     </div>
+  </nav>
 
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
-      -
-      <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-      <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-      -
-      <a href="{{ path('fos_user_registration_register') }}">Créer un compte</a>
-    {% endif %}
-
+  <div class="container-fluid">
     <div class="row">
-      <div id="menu" class="col-md-3">
+      <nav class="col-sm-3 col-md-3 d-none d-sm-block bg-light sidebar">
+
+        {% if is_granted("ROLE_ADMIN") %}
+          <h4>{{ 'Espace administrateur'|trans }}</h3>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_user_home') }}">{{ 'Utilisateurs'|trans }}</a></li>
+          </ul>
+        {% endif %}
 
         {% if is_granted("ROLE_MEMBRE") %}
-          <h3>Espace membre</h3>
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="{{ path('fos_message_inbox') }}">Messagerie</a></li>
+          <h4>{{ 'Espace membre'|trans }}</h3>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item"><a class="nav-item" href="{{ path('fos_message_inbox') }}">{{ 'Messagerie'|trans }}</a></li>
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_file_index') }}">{{ 'Fichiers'|trans }}</a></li>
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_agenda_index') }}">{{ 'Agenda'|trans }}</a></li>
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_platform_accept') }}">{{ 'Gestion des projets'|trans }}</a></li>
           </ul>
         {% endif %}
       
-        <h3>Les annonces</h3>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('es_platform_home') }}">Accueil</a></li>
+        <h4>{{ 'Les annonces'|trans }}</h3>
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-item" href="{{ path('es_platform_home') }}">{{ 'Accueil'|trans }}</a></li>
           {% if is_granted('ROLE_AUTEUR') %}
-            <li><a href="{{ path('es_platform_add') }}">Ajouter une annonce</a></li>
-            <li><a href="{{ path('es_platform_self_adverts') }}">Mes annonces</a></li>
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_platform_add') }}">{{ 'Ajouter une annonce'|trans }}</a></li>
+            <li class="nav-item"><a class="nav-item" href="{{ path('es_platform_self_adverts') }}">{{ 'Mes annonces'|trans }}</a></li>
           {% endif %}
         </ul>
 
-        <h4>Dernières annonces</h4>
+        <h4>{{ 'Dernières annonces'|trans }}</h4>
         {{ render(controller("ESPlatformBundle:Advert:menu", {'limit': 3})) }}
-      </div>
-      <div id="content" class="col-md-9">
+      </nav>
+
+      <main class="col-sm-9 ml-sm-auto col-md-9 pt-3" role="main">
         {% block body %}
         {% endblock %}
-      </div>
+      </main>
     </div>
 
     <hr>
-
-    <footer>
-      <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-    </footer>
   </div>
 
   {% block javascripts %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
   {% endblock %}
 
 </body>

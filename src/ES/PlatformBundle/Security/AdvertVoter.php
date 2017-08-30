@@ -70,7 +70,7 @@ class AdvertVoter extends Voter
     		return true;
     	}
 
-    	return $advert->getPublished();
+    	return $advert->getProjectAccepted();
     }
 
     private function canEdit(Advert $advert, User $user)
@@ -80,7 +80,7 @@ class AdvertVoter extends Voter
 
     private function canViewAnon(Advert $advert)
     {
-    	return $advert->getPublished();
+    	return $advert->getProjectAccepted();
     }
 }
 ?>

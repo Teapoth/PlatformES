@@ -1,31 +1,42 @@
-es_membre_home:
-    path:      /
+es_user_home:
+    path:      /list
     defaults:  
-        _controller: ESUserBundle:Membre:index 
+        _controller: ESUserBundle:User:index 
+        page: 1
+    requirements:
+        page: \d*
 
-es_membre_files:
-    path:      /files
+es_user_view:
+    path:      /{id}
     defaults: 
-        _controller: ESUserBundle:Membre:file
-
-es_membre_message:
-    path:      /message
-    defaults: 
-        _controller: ESUserBundle:Membre:message
-
-es_membre_planning:
-    path:      /planning
-    defaults:
-        _controller: ESPlatformBundle:Advert:edit
-
-es_membre_membres:
-    path:      /delete/{id}
-    defaults:
-        _controller: ESPlatformBundle:Advert:delete
+        _controller: ESUserBundle:User:view 
     requirements:
         id: \d+
 
-es_membre_validation:
-    path:      /myadverts
+es_user_become_author:
+    path:      /author/{id}
+    defaults: 
+        _controller: ESUserBundle:User:becomeAuthor
+    requirements:
+        id: \d+
+
+es_user_become_membre:
+    path:      /membre/{id}
     defaults:
-        _controller: ESPlatformBundle:Advert:selfadverts
+        _controller: ESUserBundle:User:becomeMembre
+    requirements:
+        id: \d+
+
+es_user_delete_author:
+    path:      /dauthor/{id}
+    defaults:
+        _controller: ESUserBundle:User:deleteAuthor
+    requirements:
+        id: \d+
+
+es_user_delete_membre:
+    path:      /dmembre/{id}
+    defaults:
+        _controller: ESUserBundle:User:deleteMembre
+    requirements:
+        id: \d+

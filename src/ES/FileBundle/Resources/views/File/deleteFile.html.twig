@@ -1,19 +1,19 @@
 {% extends "ESFileBundle::layout.html.twig" %}
 
 {% block title %}
-	Supprimer un fichier - {{ parent() }}
+	{{ 'Supprimer un fichier'|trans }} - {{ parent() }}
 {% endblock %}
  
 {% block esfile_body %}
 
-  <h2>Supprimer un fichier</h2>
+  <h2>{{ 'Supprimer un fichier'|trans }}</h2>
 
   <p>
-	  Êtes vous certain de vouloir supprimer le fichier "{{ file.name }}" ?
+	  {{ 'Êtes vous certain de vouloir supprimer le fichier'|trans }} "{{ file.name }}" ?
   </p>
 
   <form action="{{ path('es_file_delete_file', {'id': file.id}) }}" method="post">
-    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <input type="submit" value="{{ 'Supprimer'|trans }}" class="btn btn-danger" />
     {{ form_rest(form) }}
   </form>
 

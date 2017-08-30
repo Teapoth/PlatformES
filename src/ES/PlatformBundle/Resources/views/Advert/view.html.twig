@@ -1,18 +1,14 @@
 {% extends "ESPlatformBundle::layout.html.twig" %}
 
 {% block title %}
-  Lecture d'une annonce - {{ parent() }}
+  {{ 'Lecture d\'une annonce'|trans }}- {{ parent() }}
 {% endblock %}
 
 {% block esplatform_body %}
 
-  {% if advert.image is not null %}
-    <img src="{{ asset(advert.image.webPath) }}" alt="{{ advert.image.alt }}">
-  {% endif %}
-
   {% if advert.categories is not empty %}
   <p>
-    Cette annonce est parue dans les catégories suivantes :
+    {{ 'Cette annonce est parue dans les catégories suivantes'|trans }} :
     {% for category in advert.categories %}
       {{ category.name }}{% if not loop.last %}, {% endif %}
     {% endfor %}
@@ -20,25 +16,86 @@
 {% endif %}
 
   <h2>{{ advert.title }}</h2>
-  <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+  <i>{{ 'Par'|trans }} {{ advert.author }}, {{ 'le'|trans }} {{ advert.date|date('d/m/Y') }}</i>
+  <h4>{{ advert.price }}$</h4>
+  <p>{{ 'Du'|trans }} {{ advert.startDate|date('d/m/Y') }} {{ 'au'|trans }} {{ advert.endDate|date('d/m/Y') }}.
+    {{ 'Pour'|trans }} {{ advert.nbperson }} {{ 'personnes'|trans }}. {{ 'À'|trans }} {{ advert.place }}.
+  </p> 
 
   <div class="well">
     {{ advert.content }}
   </div>
 
   <p>
-    <a href="{{ path('es_platform_home') }}" class="btn btn-default">
+    {% if is_granted("ROLE_MEMBRE") %}
+      {% if advert.participants is not empty %}
+        <div>{{ 'Participants'|trans }} : {{ advert.participants|length }}/{{ advert.nbperson }}
+          <ul>
+            {% for user in advert.participants %}
+              <li><a href="{{ path('es_user_view', {'id': user.id}) }}">{{ user.username }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      {% if not advert.projectAccepted %}
+        {% if advert.budgetAccepted %}
+            <a href="{{ path('es_platform_budget_view', {'id': advert.id}) }}" class="btn btn-default btn-info">{{ 'Voir le budget'|trans }}</a>
+            <a href="{{ path('es_platform_accept_project', {'id': advert.id}) }}" class="btn btn-default btn-warning">{{ 'Accepter et publier le projet'|trans }}</a>
+
+        {% elseif advert.descriptionAccepted %}
+          {% if advert.budget == null %}
+            {{ 'L\'auteur n\'a toujours pas proposé de budget'|trans }}
+          {% else %}
+            <a href="{{ path('es_platform_budget_view', {'id': advert.id}) }}" class="btn btn-default btn-info">{{ 'Voir le budget'|trans }}</a>
+            <a href="{{ path('es_platform_accept_budget', {'id': advert.id}) }}" class="btn btn-default btn-warning">{{ 'Accepter le budget'|trans }}</a>
+          {% endif %}
+        {% else %}
+            <a href="{{ path('es_platform_accept_description', {'id': advert.id}) }}" class="btn btn-default btn-warning">{{ 'Accepter la description du projet'|trans }}</a>
+        {% endif %}
+      {% else %}
+        <a href="{{ path('es_platform_budget_view', {'id': advert.id}) }}" class="btn btn-default btn-info">{{ 'Voir le budget'|trans }}</a>
+      {% endif %}
+    {% endif %}
+  </p>
+
+  <p>
+    {% if is_granted("ROLE_USER") and app.user != advert.author %} 
+      {% if app.user in advert.participants %}
+        <strong>{{ 'Inscrit'|trans }}</strong>
+      {% elseif advert.participants|length >= advert.nbperson %}
+        <strong>{{ 'Complet'|trans }}</strong>
+      {% else %}
+        <a href="{{ path('es_platform_participe', {'id': advert.id}) }}">{{ 'S\'inscrire'|trans }}</a>
+      {% endif %}
+    {% endif %}
+  </p>
+
+  <p>
+    <a href="{{ path('es_platform_home') }}" class="btn btn-default btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à la liste
+      {{ 'Retour à la liste'|trans }}
     </a>
     {% if app.user == advert.author %}
-      <a href="{{ path('es_platform_edit', {'id': advert.id}) }}" class="btn btn-default">
+        {{ 'Status'|trans }} : <strong>
+        {% if advert.budgetAccepted %}
+            {{ 'En attente d\'acceptation du projet'|trans }}
+        {% elseif advert.descriptionAccepted %}
+            {{ 'En attente d\'acceptation du budget'|trans }}
+        {% else %}
+            {{ 'En attente d\'acceptation de la description'|trans }}
+        {% endif %} </strong>
+      <a href="{{ path('es_platform_edit', {'id': advert.id}) }}" class="btn btn-default btn-dark">
         <i class="glyphicon glyphicon-edit"></i>
-        Modifier l'annonce
+        {{ 'Modifier l\'annonce'|trans }}
       </a>
+      {% if advert.budget == null %}
+        <a href="{{ path('es_platform_budget_add', {'id': advert.id}) }}" class="btn btn-default btn-success">{{ 'Ajouter un budget'|trans }}</a>
+      {% else %}
+        <a href="{{ path('es_platform_budget_edit', {'id': advert.id}) }}" class="btn btn-default btn-success">{{ 'Modifier le budget'|trans }}</a>
+      {% endif %}
       <a href="{{ path('es_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
         <i class="glyphicon glyphicon-trash"></i>
-        Supprimer l'annonce
+        {{ 'Supprimer l\'annonce'|trans }}
       </a>
     {% endif %}
   </p>

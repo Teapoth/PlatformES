@@ -1,19 +1,19 @@
 {% extends "ESFileBundle::layout.html.twig" %}
 
 {% block title %}
-	Supprimer un dossier - {{ parent() }}
+	{{ 'Supprimer un dossier'|trans }} - {{ parent() }}
 {% endblock %}
  
 {% block esfile_body %}
 
-  <h2>Supprimer un dossier</h2>
+  <h2>{{ 'Supprimer un dossier'|trans }}</h2>
 
   <p>
-	  Êtes vous certain de vouloir supprimer le dossier "{{ directory.name }}" et tout son contenu ?
+	  {{ 'Êtes vous certain de vouloir supprimer le dossier'|trans }} "{{ directory.name }}" {{ 'et tout son contenu ?'|trans }}
   </p>
 
   <form action="{{ path('es_file_delete_directory', {'id': directory.id}) }}" method="post">
-    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <input type="submit" value="{{ 'Supprimer'|trans }}" class="btn btn-danger" />
     {{ form_rest(form) }}
   </form>
 

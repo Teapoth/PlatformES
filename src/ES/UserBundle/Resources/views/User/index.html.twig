@@ -1,0 +1,37 @@
+{% extends "ESUserBundle::layout.html.twig" %}
+
+{% block esuser_body %}
+
+<h2>{{ 'Liste des utilisateurs'|trans }}</h2>
+
+<ul>
+    {% for user in listUsers if user.id != app.user.id %}
+        <li><a href="{{ path("es_user_view", {'id' : user.id }) }}">{{ user.username }}</a>
+    	
+    {% if user.hasRole('ROLE_MEMBRE') %}
+      <a href="{{ path('es_user_delete_membre', {'id': user.id}) }}" class="btn btn-default btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        {{ 'Supprimer membre'|trans }}
+      </a>
+    {% else %}
+      <a href="{{ path('es_user_become_membre', {'id': user.id}) }}" class="btn btn-default btn-success">
+        <i class="glyphicon glyphicon-edit"></i>
+       {{ 'Rendre membre'|trans }}
+      </a>
+    {% endif %}
+
+    {% if user.hasRole('ROLE_AUTHOR') %}
+      <a href="{{ path('es_user_delete_author', {'id': user.id}) }}" class="btn btn-default btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        {{ 'Supprimer auteur'|trans }}
+      </a>
+    {% else %}
+      <a href="{{ path('es_user_become_author', {'id': user.id}) }}" class="btn btn-default btn-success">
+        <i class="glyphicon glyphicon-edit"></i>
+        {{ 'Rendre auteur'|trans }}
+      </a>
+    {% endif %}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

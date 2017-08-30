@@ -1,0 +1,44 @@
+{% extends "ESUserBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ user.username }} - {{ parent() }}
+{% endblock %}
+
+{% block esuser_body %}
+
+  <h2>{{ user.username }}</h2>
+<div>{{ 'Addresse mail'|trans }} : {{ user.email }}</div>
+<div>{{ 'Roles'|trans }} : {% for role in user.roles %} {{ role }}{% endfor %}</div>
+
+  <p>
+    <a href="{{ path('es_user_home') }}" class="btn btn-default btn-primary">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+     {{ 'Retour'|trans }}
+    </a>
+
+    {% if user.hasRole('ROLE_MEMBRE') %}
+      <a href="{{ path('es_user_delete_membre', {'id': user.id}) }}" class="btn btn-default btn-danger">
+        <i class="glyphicon glyphicon-edit"></i>
+        {{ 'Supprimer membre'|trans }}
+      </a>
+    {% else %}
+      <a href="{{ path('es_user_become_membre', {'id': user.id}) }}" class="btn btn-default btn-success">
+        <i class="glyphicon glyphicon-edit"></i>
+        {{ 'Rendre membre'|trans }}
+      </a>
+    {% endif %}
+
+    {% if user.hasRole('ROLE_AUTHOR') %}
+      <a href="{{ path('es_user_delete_author', {'id': user.id}) }}" class="btn btn-default btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        {{ 'Supprimer auteur'|trans }}
+      </a>
+    {% else %}
+      <a href="{{ path('es_user_become_author', {'id': user.id}) }}" class="btn btn-default btn-success">
+        <i class="glyphicon glyphicon-edit"></i>
+        {{ 'Rendre auteur'|trans }}
+      </a>
+    {% endif %}
+  </p>
+
+{% endblock %}

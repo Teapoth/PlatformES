@@ -38,4 +38,6 @@ security:
         secret: "%secret%"
 
   access_control:
-    - { path: ^/message/, roles: ROLE_MEMBRE }
+    - { path: ^/(message|files|agenda)/, roles: ROLE_MEMBRE }
+    - { path: ^/platform/accept/, roles: ROLE_MEMBRE }
+    - { path: ^/user/, roles: ROLE_ADMIN }

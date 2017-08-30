@@ -1,32 +1,32 @@
 {% extends "ESFileBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Accueil{% endblock %}
+{% block title %}{{ parent() }} - {{ 'Accueil'|trans }}{% endblock %}
 
 {% block esfile_body %}
-	<h2>Liste des fichiers{% if directory is not null %} - Dossier {{ directory.name }}{% endif %}</h2>
+	<h2>{{ 'Liste des fichiers'|trans }}{% if directory is not null %} - {{ 'Dossier'|trans }} {{ directory.name }}{% endif %}</h2>
 
     {% if idParentDirectory is not null %}
-        <a href="{{ path('es_file_index', {'directoryId': idParentDirectory}) }}" class="btn btn-default">
-      <i class="glyphicon glyphicon-chevron-left"></i>Dossier Parent</a>
+        <a href="{{ path('es_file_index', {'directoryId': idParentDirectory}) }}" class="btn btn-default btn-primary">
+      <i class="glyphicon glyphicon-chevron-left"></i>{{ 'Dossier Parent'|trans }}</a>
     {% endif %}
 
     {% if directory is not null %}
-        <a href="{{ path('es_file_add', {'directoryId': directory.id}) }}" class="btn btn-default">Ajouter un fichier</a>
-        <a href="{{ path('es_file_add_directory', {'directoryId': directory.id}) }}" class="btn btn-default">Ajouter un dossier</a>
+        <a href="{{ path('es_file_add', {'directoryId': directory.id}) }}" class="btn btn-default btn-success">{{ 'Ajouter un fichier'|trans }}</a>
+        <a href="{{ path('es_file_add_directory', {'directoryId': directory.id}) }}" class="btn btn-default btn-success">{{ 'Ajouter un dossier'|trans }}</a>
     {% else %}
-        <a href="{{ path('es_file_add') }}" class="btn btn-default">Ajouter un fichier</a>
-        <a href="{{ path('es_file_add_directory') }}" class="btn btn-default">Ajouter un dossier</a>
+        <a href="{{ path('es_file_add') }}" class="btn btn-default btn-success">{{ 'Ajouter un fichier'|trans }}</a>
+        <a href="{{ path('es_file_add_directory') }}" class="btn btn-default btn-success">{{ 'Ajouter un dossier'|trans }}</a>
     {% endif %}
     <ul>
         {% for adirectory in listDirectories %}
             <li>
                 <a href="{{ path('es_file_index', {'directoryId': adirectory.id}) }}">
                 {{ adirectory.name }}</a>
-                <a href="{{ path('es_file_rename_directory', {'id': adirectory.id}) }}" class="btn btn-default">
-                Renomer</a>
+                <a href="{{ path('es_file_rename_directory', {'id': adirectory.id}) }}" class="btn btn-default btn-info">
+                {{ 'Renomer'|trans }}</a>
                 <a href="{{ path('es_file_delete_directory', {'id': adirectory.id}) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
-                    Supprimer
+                    {{ 'Supprimer'|trans }}
                 </a>
             </li>
         {% endfor %}
@@ -37,11 +37,11 @@
       		<li>
                 <a href="{{ file.WebPath }}">
         		{{ file.name }}.{{ file.extension }}</a>
-                <a href="{{ path('es_file_rename_file', {'id': file.id}) }}" class="btn btn-default">
-                Renomer</a>
+                <a href="{{ path('es_file_rename_file', {'id': file.id}) }}" class="btn btn-default btn-info">
+                {{ 'Renomer'|trans }}</a>
                 <a href="{{ path('es_file_delete_file', {'id': file.id}) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
-                    Supprimer
+                    {{ 'Supprimer'|trans }}
                 </a>
         	</li>
     	{% endfor %}

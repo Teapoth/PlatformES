@@ -25,8 +25,7 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
 	public function getAdverts($page, $nbPerPage)
 	{
 		$qb = $this->createQueryBuilder('a');
-		$qb->andWhere('a.published = 1');
-		$qb->leftJoin('a.image', 'i')->addSelect('i');
+		$qb->andWhere('a.projectAccepted = 1');
 		$qb->leftJoin('a.categories', 'c')->addSelect('c');
 		$qb->orderBy('a.date', 'DESC');
 

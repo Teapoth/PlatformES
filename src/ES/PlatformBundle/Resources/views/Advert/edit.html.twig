@@ -1,24 +1,19 @@
 {% extends "ESPlatformBundle::layout.html.twig" %}
 
 {% block title %}
-  Modifier une annonce - {{ parent() }}
+  {{ 'Modifier une annonce'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block esplatform_body %}
 
-  <h2>Modifier une annonce</h2>
+  <h2>{{ 'Modifier une annonce'|trans }}</h2>
 
   {{ include("ESPlatformBundle:Advert:form.html.twig") }}
 
   <p>
-    Vous éditez une annonce déjà existante, merci de ne pas changer
-    l'esprit général de l'annonce déjà publiée.
-  </p>
-
-  <p>
-    <a href="{{ path('es_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+    <a href="{{ path('es_platform_view', {'id': advert.id}) }}" class="btn btn-default btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à l'annonce
+      {{ 'Retour à l\'annonce'|trans }}
     </a>
   </p>
 

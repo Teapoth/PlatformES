@@ -1,75 +1,97 @@
 {% extends "ESAgendaBundle::layout.html.twig" %}
 
+{% block title %}
+	{{ 'Évènements'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% set time = "now"|date("U")|date_modify("+" ~ month ~ " month") %}
+
 {% block esagenda_body %}
-
-    {% set time = "now"|date("U")|date_modify("+" ~ month ~ " month") %}
-    <table>
-        <thead>
-                <th colspan="7" class="center">
-                    {{ time|date('Y') }}
-                </th>
-            <tr>
-                <th colspan="1" class="left">
-                    <a href="{{ path('es_agenda_index', {'month': (month-1)}) }}">&lt;&lt;</a>
-                </th>
-                <th colspan="7" class="center">
-                    {{ time|date('F') |trans }}
-                </th>
-                <th class="right">
-                    <a href="{{ path('es_agenda_index', {'month': (month+1)}) }}">&gt;&gt;</a>
-                </th>
-            </tr>
-            <tr>
-                <th width="15%">Lundi</th>
-                <th width="15%">Mardi</th>
-                <th width="15%">Mercredi</th>
-                <th width="15%">Jeudi</th>
-                <th width="15%">Vendredi</th>
-                <th width="15%">Samedi</th>
-                <th width="15%">Dimanche</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            {% set daysInMonth = time|date('t') %}
-            {% set startDow = time|date('F 1\\s\\t Y')|date('N') - 1 %}
-            {% set dow = startDow %}
-            {% for day in range(1,daysInMonth) %}
-                {% if loop.first and startDow != 0 %}
-                    <td colspan="{{ startDow }}"></td>
-                {% endif %}
-                <td>
-                    <div>
-                        <div>
-                            {% if time|date('d') == day and month == 0 %}
-                                <strong>{{ day }}</strong>
-                            {% else %}
-                                {{ day }}
-                            {% endif %}
-                        </div>
-                        <div>
-                            {% if listEvents is not empty and listEvents[0].dateBeginning|date('d')== day %}
-                                {% set event = listEvents[0] %}
-                                <a href="{{ path('es_agenda_view', {'id': event.id}) }}">{{ event.name }}</a> à {{  event.dateBeginning|date('H:i') }}
-                                {% set listEvents = listEvents|slice(1) %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </td>
-                {% if loop.last and dow != 6 %}
-                    <td colspan="{{ 6 - dow }}">&nbsp;</td>
-                {% endif %}
-                {% if dow == 6 %}
-                    {% set dow = 0 %}
-                </tr>
-                <tr>
-                {% else %}
-                    {% set dow = dow + 1 %}
-                {% endif %}
-            {% endfor %}
-            </tr>
-        </tbody>
+<div class="table-responsive">
+<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>
+					<a href="{{ path("es_agenda_index", {'month' : (month-12)}) }}">&lt;&lt;</a>
+				</th>
+				<th></th>
+				<th></th>
+				<th class="center">
+					{{ time|date('Y') }}
+				</th>
+				<th></th>
+				<th></th>
+				<th>
+					<a href="{{ path("es_agenda_index", {'month' : (month+12)}) }}">&gt;&gt;</a>
+				</th>
+			</tr>
+			<tr>
+				<th class="left">
+					<a href="{{ path("es_agenda_index", {'month' : (month-1)}) }}">&lt;&lt;</a>
+				</th><th>
+				</th><th>
+				</th>
+				<th class="center">
+					{{ time|date('F')|trans }}
+				</th>
+				</th><th>
+				</th><th>
+				<th class="right">
+					<a href="{{ path("es_agenda_index", {'month' : (month+1)}) }}">&gt;&gt;</a>
+				</th>
+			</tr>
+			<tr>
+				<th width="15%">{{ 'Lundi'|trans }}</th>
+				<th width="15%">{{ 'Mardi'|trans }}</th>
+				<th width="15%">{{ 'Mercredi'|trans }}</th>
+				<th width="15%">{{ 'Jeudi'|trans }}</th>
+				<th width="15%">{{ 'Vendredi'|trans }}</th>
+				<th width="15%">{{ 'Samedi'|trans }}</th>
+				<th width="15%">{{ 'Dimanche'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			{% set daysInMonth = time|date('t') %}
+			{% set startDow = time|date('F 1\\s\\t Y')|date('N') -1 %}
+			{% set dow = startDow %}
+			{% for day in range(1,daysInMonth) %}
+				{% if loop.first and startDow != 0 %}
+					<td colspan="{{ startDow }}"></td>
+				{% endif %}
+				<td>
+					<div>
+						{% if day == "now"|date('d') and month == "now"|date('M')%}
+							<div><strong>{{ day }}</strong></div>
+						{% else %}
+							<div>{{ day }}</div>
+						{% endif %}
+						<ul>
+							{% for event in listEvents if day == listEvents[0].dateBeginning|date('d') %}
+								<li>
+									<a href="{{ path("es_agenda_view", {'id' : event.id }) }}">{{ event.name }}</a> {{ 'à'|trans }} {{ event.dateBeginning|date('H:i') }}
+								</li>
+								{% set listEvents = listEvents|slice(1) %}
+							{% endfor %}
+						</ul>
+					</div>
+				</td>
+				{% if loop.last and dow != 6 %}
+					<td colspan="{{ 6 - dow }}">&nbsp;</td>
+				{% endif %}
+				{% if dow == 6 %}
+					{% set dow = 0 %}
+				</tr>
+				<tr>
+				{% else %}
+					{% set dow = dow + 1 %}
+				{% endif %}
+			{% endfor %}
+			</tr>
+		</tbody>
 </table>
+</div>
 
-	<a href="{{ path('es_agenda_add') }}" class="btn btn-default">Ajouter un évènement</a>
+<a href="{{ path("es_agenda_add") }}" class="btn btn-default btn-success">{{ 'Ajouter un Évènement'|trans }}</a>
+
 {% endblock %}
