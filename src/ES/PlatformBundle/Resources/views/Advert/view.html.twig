@@ -65,14 +65,13 @@
       {% elseif advert.participants|length >= advert.nbperson %}
         <strong>{{ 'Complet'|trans }}</strong>
       {% else %}
-        <a href="{{ path('es_platform_participe', {'id': advert.id}) }}">{{ 'S\'inscrire'|trans }}</a>
+        <a href="{{ path('es_platform_participe', {'id': advert.id}) }}" class="btn btn-default btn-success">{{ 'S\'inscrire'|trans }}</a>
       {% endif %}
     {% endif %}
   </p>
 
   <p>
     <a href="{{ path('es_platform_home') }}" class="btn btn-default btn-primary">
-      <i class="glyphicon glyphicon-chevron-left"></i>
       {{ 'Retour à la liste'|trans }}
     </a>
     {% if app.user == advert.author %}
@@ -85,7 +84,6 @@
             {{ 'En attente d\'acceptation de la description'|trans }}
         {% endif %} </strong>
       <a href="{{ path('es_platform_edit', {'id': advert.id}) }}" class="btn btn-default btn-dark">
-        <i class="glyphicon glyphicon-edit"></i>
         {{ 'Modifier l\'annonce'|trans }}
       </a>
       {% if advert.budget == null %}
@@ -94,7 +92,6 @@
         <a href="{{ path('es_platform_budget_edit', {'id': advert.id}) }}" class="btn btn-default btn-success">{{ 'Modifier le budget'|trans }}</a>
       {% endif %}
       <a href="{{ path('es_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
-        <i class="glyphicon glyphicon-trash"></i>
         {{ 'Supprimer l\'annonce'|trans }}
       </a>
     {% endif %}

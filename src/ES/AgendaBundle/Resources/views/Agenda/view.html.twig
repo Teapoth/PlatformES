@@ -15,15 +15,12 @@
 
   <p>
     <a href="{{ path('es_agenda_index') }}" class="btn btn-default btn-primary">
-      <i class="glyphicon glyphicon-chevron-left"></i>
       {{ 'Retour'|trans }}
     </a>
     <a href="{{ path('es_agenda_edit', {'id': event.id}) }}" class="btn btn-default btn-dark">
-      <i class="glyphicon glyphicon-edit"></i>
       {{ 'Modifier l\'évènement'|trans }}
     </a>
     <a href="{{ path('es_agenda_delete', {'id': event.id}) }}" class="btn btn-danger">
-      <i class="glyphicon glyphicon-trash"></i>
       {{ 'Supprimer l\'évènement'|trans }}
       </a>
   </p>

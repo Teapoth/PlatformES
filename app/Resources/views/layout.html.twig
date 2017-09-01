@@ -6,6 +6,8 @@
 
   <title>{% block title %}{{ 'ES Plateforme'|trans }}{% endblock %}</title>
 
+  <link rel="icon" href="{{ asset('images/cropped-logoestelisolidarite50x50.jpg')}}" sizes="32x32">
+
   {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   {% endblock %}
@@ -15,11 +17,14 @@
 body {
   padding-top: 4rem;
 }
+h4 {
+  padding-top: 1rem;
+}
 </style>
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{{ path('es_platform_home') }}">Esteli Solidarité</a>
+    <a class="navbar-brand" href="{{ path('es_platform_home') }}"><img src="{{ asset('images/cropped-logoestelisolidarite80x80.jpg')}}" width="35"></a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -28,6 +33,9 @@ body {
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('fos_user_profile_show') }}">{{ 'Profil'|trans }}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link" href="{{ path('fos_message_inbox') }}">{{ 'Messagerie'|trans }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('fos_user_security_logout') }}">{{ 'Déconnexion'|trans }}</a>
@@ -40,6 +48,16 @@ body {
           <a class="nav-link" href="{{ path('fos_user_registration_register') }}">{{ 'Créer un compte'|trans }}</a>
         </li>
         {% endif %}
+
+        <li {% if app.request.locale == 'fr' %} class="nav-item active small" {% else %} class="nav-item small" {% endif %}>
+        	<a class="nav-link" href="{{ path('home', { _locale : 'fr' }) }}">fr</a>
+        </li>
+        <li {% if app.request.locale == 'en' %} class="nav-item active small" {% else %} class="nav-item small" {% endif %}>
+        	<a class="nav-link" href="{{ path('home', { _locale : 'en' }) }}">en</a>
+        </li>
+        <li {% if app.request.locale == 'es' %} class="nav-item active small" {% else %} class="nav-item small" {% endif %}>
+        	<a class="nav-link" href="{{ path('home', { _locale : 'es' }) }}">es</a>
+        </li>
       </ul>
       <a class="btn btn-lg" href="https://estelisolidarite.wordpress.com/">
         {{ 'À Propos'|trans }}

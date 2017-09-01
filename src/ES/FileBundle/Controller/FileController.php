@@ -219,10 +219,11 @@ class FileController extends Controller
   {
     $em = $this->getDoctrine()->getManager();
     $file = $em->getRepository('ESFileBundle:File')->find($id);
-    $response = new Response();
-    $response->setContent(file_get_contents("uploads/file/".$id.".".$extension));
-    $response->headers->set('Content-Type', 'application/force-download');
-    $response->headers->set('Content-disposition', 'filename='.$file->getName().'.'.$extension);
+    $name = trim($file->getName()," \t\n\r\0\x0B");
+
+    $response = new BinaryFileResponse("uploads/file/".$id.".".$extension);
+
+    $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $name.".".$extension);
          
     return $response;
   }

@@ -32,6 +32,7 @@ class AdvertController extends Controller
 
       $listAdverts = $this->getDoctrine()->getManager()->getRepository('ESPlatformBundle:Advert')->getAdverts($page, $nbPerPages);
       $nbPages = ceil(count($listAdverts)/$nbPerPages);
+      $nbPages = ($nbPages == 0 ? 1 : $nbPages);
 
       if ($page > $nbPages) {
         throw $this->createNotFoundException("La page ".$page." n'existe pas.");

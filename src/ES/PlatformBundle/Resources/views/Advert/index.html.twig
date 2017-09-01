@@ -7,12 +7,27 @@
 
 	<div class="list-group">
 		{% for advert in listAdverts %}
-		  <a href="{{ path('es_platform_view', {'id': advert.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+		  <a href="{{ path('es_platform_view', {'id': advert.id}) }}"
+		  {% if advert.categories is empty %}
+		  	class="list-group-item list-group-item-action list-group-item flex-column align-items-start"
+		  {% else %}
+		  	{% if advert.categories[0].name == "Santé" %}
+		  		class="list-group-item list-group-item-action list-group-item-info success flex-column align-items-start"
+			{% elseif advert.categories[0].name == "Bâtiment"%}
+				class="list-group-item list-group-item-action list-group-item-danger  flex-column align-items-start"
+			{% elseif advert.categories[0].name == "Développement durable"%}
+				class="list-group-item list-group-item-action list-group-item-success flex-column align-items-start"
+			{% elseif advert.categories[0].name == "Éducation"%}
+				class="list-group-item list-group-item-action list-group-item-warning flex-column align-items-start"
+			{% endif %}
+		  {% endif %}
+
+		  >
 		    <div class="d-flex w-100 justify-content-between">
 		      <h5 class="mb-1">{{ advert.title }}</h5>
 		      <small>{{ 'Du'|trans }} {{ advert.startDate|date('d/m/Y') }}, {{ 'au'|trans }} {{ advert.endDate|date('d/m/Y') }}</small>
 		    </div>
-		    <p class="mb-1">{{ advert.content|length > 80 ? advert.content|slice(0, 80) ~ '...' : advert.content }}</p>
+		    <p class="mb-1">{{ advert.content|length > 200 ? advert.content|slice(0, 200) ~ '...' : advert.content }}</p>
 		    <div class="d-flex w-100 justify-content-between">
 		    	<small>{% for category in advert.categories %}{{ category.name }}{% if not loop.last %},{% endif %}{% endfor %}</small>
 		    	<small><strong>{{ advert.price }}$</strong></small>
@@ -24,32 +39,8 @@
     	{% endfor %}
 	 </div>
 
-
-
-
-
-
-
-
-
-
-
-	
-	<ul>
-    	{% for advert in listAdverts %}
-      		<li>
-        		<a href="{{ path('es_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a> {{ 'par'|trans }} {{ advert.author }}, {{ 'le'|trans }} {{ advert.date|date('d/m/Y') }}
-        	</li>
-    	
-    	{% else %}
-			<li>{{ 'Pas (encore !) d\'annonces'|trans }}</li>
-
-    	{% endfor %}
-
-	</ul>
-
 	<nav aria-label="Pagination">
-	  <ul class="pagination">
+	  <ul class="pagination justify-content-center">
 	    <li {% if page == 1 %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
 	      <a class="page-link" href="{{ path('es_platform_home', {'page': (page-1)}) }}" {% if page == 1 %} tabindex="-1" {% endif %} aria-label="Previous">
 	        <span aria-hidden="true">&laquo;</span>

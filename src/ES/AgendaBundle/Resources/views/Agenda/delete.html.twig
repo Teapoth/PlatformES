@@ -13,8 +13,7 @@
   </p>
 
   <form action="{{ path('es_agenda_delete', {'id': event.id}) }}" method="post">
-    <a href="{{ path('es_agenda_view', {'id': event.id}) }}" class="btn btn-default">
-      <i class="glyphicon glyphicon-chevron-left"></i>
+    <a href="{{ path('es_agenda_view', {'id': event.id}) }}" class="btn btn-default btn-primary">
       {{ 'Retour à l\'évènement'|trans }}
     </a>
     <input type="submit" value="{{ 'Supprimer'|trans }}" class="btn btn-danger" />
