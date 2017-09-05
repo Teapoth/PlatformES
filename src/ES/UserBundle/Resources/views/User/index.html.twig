@@ -20,7 +20,7 @@
       </a>
     {% endif %}
 
-    {% if user.hasRole('ROLE_AUTHOR') %}
+    {% if user.hasRole('ROLE_AUTEUR') %}
       <a href="{{ path('es_user_delete_author', {'id': user.id}) }}" class="btn btn-default btn-danger">
         <i class="glyphicon glyphicon-trash"></i>
         {{ 'Supprimer auteur'|trans }}

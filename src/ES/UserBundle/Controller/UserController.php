@@ -59,7 +59,7 @@ class UserController extends Controller
 		 throw new NotFoundHttpException("l'utilisateur n°".$id." n'existe pas.");
 		}
 
-		$user->addRole("ROLE_AUTHOR");
+		$user->addRole("ROLE_AUTEUR");
 		$em->flush();
 
 		$referer = $request->headers->get('referer');
@@ -103,7 +103,7 @@ class UserController extends Controller
 		 throw new NotFoundHttpException("l'utilisateur n°".$id." n'existe pas.");
 		}
 
-		$user->removeRole("ROLE_AUTHOR");
+		$user->removeRole("ROLE_AUTEUR");
 		$em->flush();
 
 		$referer = $request->headers->get('referer');

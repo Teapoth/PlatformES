@@ -48,7 +48,7 @@ class AdvertVoter extends Voter
         	}
         }
 
-        if ($this->decisionManager->decide($token, array('ROLE_MODERATEUR'))) 
+        if ($this->decisionManager->decide($token, array('ROLE_MEMBRE'))) 
         {
             return true;
         }
